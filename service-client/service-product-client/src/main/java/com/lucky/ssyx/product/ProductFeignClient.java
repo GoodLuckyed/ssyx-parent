@@ -5,6 +5,10 @@ import com.lucky.ssyx.model.product.SkuInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * @author lucky
@@ -28,4 +32,20 @@ public interface ProductFeignClient {
      */
     @GetMapping("/api/product/inner/getSkuInfo/{skuId}")
     public SkuInfo getSkuInfo(@PathVariable Long skuId);
+
+    /**
+     * 批量获取sku商品信息
+     * @param skuIdList
+     * @return
+     */
+    @PostMapping("/api/product/inner/findSkuInfoList")
+    public List<SkuInfo> findSkuInfoList(@RequestBody List<Long> skuIdList);
+
+    /**
+     * 根据关键字获取sku商品列表
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/api/product/inner/findSkuInfoByKeyword/{keyword}")
+    public List<SkuInfo> findSkuInfoByKeyword(@PathVariable String keyword);
 }

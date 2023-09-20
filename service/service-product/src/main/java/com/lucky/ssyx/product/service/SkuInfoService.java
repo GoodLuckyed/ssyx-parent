@@ -7,6 +7,8 @@ import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.vo.product.SkuInfoQueryVo;
 import com.lucky.ssyx.vo.product.SkuInfoVo;
 
+import java.util.List;
+
 /**
  * <p>
  * sku信息 服务类
@@ -64,4 +66,16 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @param status
      */
     void isNewPerson(Long skuId, Integer status);
+
+    /**
+     * 批量获取sku商品信息
+     * @param skuIdList
+     */
+    List<SkuInfo> findSkuInfoList(List<Long> skuIdList);
+
+    /**
+     * 根据关键字获取sku商品列表
+     * @param keyword
+     */
+    List<SkuInfo> findSkuInfoByKeyword(String keyword);
 }
