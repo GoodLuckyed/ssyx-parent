@@ -20,7 +20,6 @@ import java.util.List;
  * @date 2023/8/28
  */
 @RestController
-@CrossOrigin
 @RequestMapping("/admin/acl/role")
 @Api(tags = "角色接口")
 public class RoleController {

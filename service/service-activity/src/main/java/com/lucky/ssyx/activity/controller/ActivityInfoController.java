@@ -27,7 +27,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin/activity/activityInfo")
-@CrossOrigin
 public class ActivityInfoController {
 
     @Autowired
