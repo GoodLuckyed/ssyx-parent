@@ -33,8 +33,9 @@ spring:
       discovery:
         server-addr: localhost:8848
 
+
 aliyun:
-  endpoint: oss-cn-beijing.aliyuncs.com
-  OSS_ACCESS_KEY_ID: LTAI5tKEbQrncAyPSMpw81iT
-  OSS_ACCESS_KEY_SECRET: J42jNcIt9iwKiUMIfoRSMeG7vPeGKV
-  bucketname: ssyx-lucky
+  endpoint: xxx
+  OSS_ACCESS_KEY_ID: xxx
+  OSS_ACCESS_KEY_SECRET: xxx
+  bucketname: xxx
