@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lucky.ssyx.activity.service.CouponInfoService;
 import com.lucky.ssyx.common.result.Result;
 import com.lucky.ssyx.model.activity.CouponInfo;
+import com.lucky.ssyx.vo.activity.CouponRuleVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.omg.CORBA.PUBLIC_MEMBER;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -75,6 +77,20 @@ public class CouponInfoController {
     @DeleteMapping("/batchRemove")
     public Result batchRemove(@RequestBody List<Long> idList){
         couponInfoService.removeByIds(idList);
+        return Result.ok(null);
+    }
+
+    @ApiOperation("根据优惠活动id查询优惠规则")
+    @GetMapping("/findCouponRuleList/{id}")
+    public Result findCouponRuleListById(@PathVariable Long id){
+        Map<String,Object> map = couponInfoService.findCouponRuleListById(id);
+        return Result.ok(map);
+    }
+
+    @ApiOperation("添加优惠规则")
+    @PostMapping("/saveCouponRule")
+    public Result saveCouponRule(@RequestBody CouponRuleVo couponRuleVo){
+        couponInfoService.saveCouponRule(couponRuleVo);
         return Result.ok(null);
     }
 }

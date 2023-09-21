@@ -27,10 +27,15 @@ public interface CategoryService extends IService<Category> {
      */
     IPage<Category> selectPage(Page<Category> pageObj, CategoryQueryVo categoryQueryVo);
 
-
     /**
      * 获取全部商品分类
      * @return
      */
     List<Category> findAllList();
+
+    /**
+     * 批量获取分类信息
+     * @param categoryIdList
+     */
+    List<Category> findCategoryInfoList(List<Long> categoryIdList);
 }

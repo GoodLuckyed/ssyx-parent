@@ -2,6 +2,7 @@ package com.lucky.ssyx.activity.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lucky.ssyx.model.activity.CouponRange;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.lucky.ssyx.model.activity.CouponRange;
  * @author lucky
  * @since 2023-09-18
  */
+@Mapper
 public interface CouponRangeMapper extends BaseMapper<CouponRange> {
 
 }

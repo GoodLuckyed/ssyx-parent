@@ -57,4 +57,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<Category> categoryList = categoryMapper.selectList(wrapper);
         return categoryList;
     }
+
+    /**
+     * 批量获取分类信息
+     * @param categoryIdList
+     */
+    @Override
+    public List<Category> findCategoryInfoList(List<Long> categoryIdList) {
+        List<Category> categoryList = categoryMapper.selectBatchIds(categoryIdList);
+        return categoryList;
+    }
 }
