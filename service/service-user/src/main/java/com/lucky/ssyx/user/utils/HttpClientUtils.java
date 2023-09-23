@@ -1,4 +1,4 @@
-package com.lucky.ssyx.utils;
+package com.lucky.ssyx.user.utils;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;

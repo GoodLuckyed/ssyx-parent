@@ -4,16 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lucky.ssyx.acl.mapper.PermissionMapper;
 import com.lucky.ssyx.acl.service.PermissionService;
-import com.lucky.ssyx.acl.service.RolePermissionService;
 import com.lucky.ssyx.model.acl.Permission;
-import com.lucky.ssyx.model.acl.RolePermission;
-import com.lucky.ssyx.utils.PermissionHelper;
+import com.lucky.ssyx.user.utils.PermissionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lucky

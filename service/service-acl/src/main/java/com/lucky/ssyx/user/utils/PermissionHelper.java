@@ -1,4 +1,4 @@
-package com.lucky.ssyx.utils;
+package com.lucky.ssyx.user.utils;
 
 import com.lucky.ssyx.model.acl.Permission;
 
