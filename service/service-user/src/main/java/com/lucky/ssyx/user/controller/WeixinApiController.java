@@ -1,6 +1,7 @@
 package com.lucky.ssyx.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lucky.ssyx.common.Auth.AuthContextHolder;
 import com.lucky.ssyx.common.constant.RedisConst;
 import com.lucky.ssyx.common.exception.SsyxException;
 import com.lucky.ssyx.common.result.Result;
@@ -17,10 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -76,8 +74,8 @@ public class WeixinApiController {
         if (user == null){
             user = new User();
             user.setOpenId(openid);
-            user.setNickName("用户");
-            user.setPhotoUrl("https://i1.hdslb.com/bfs/archive/23f8a9e700410280b713e587e887e9efe17b37ee.jpg");
+            user.setNickName(openid);
+            user.setPhotoUrl("");
             user.setUserType(UserType.USER);
             user.setIsNew(0);
             userService.save(user);
@@ -99,6 +97,17 @@ public class WeixinApiController {
         map.put("token",token);
         map.put("leaderAddressVo",leaderAddressVo);
         return Result.ok(map);
+    }
+
+    @PostMapping("/auth/updateUser")
+    @ApiOperation("更新用户昵称与头像")
+    public Result updateUser(@RequestBody User user) {
+        User user1 = userService.getById(AuthContextHolder.getUserId());
+        //把昵称更新为微信用户
+        user1.setNickName(user.getNickName().replaceAll("[ue000-uefff]", "*"));
+        user1.setPhotoUrl(user.getPhotoUrl());
+        userService.updateById(user1);
+        return Result.ok(null);
     }
 }
 
