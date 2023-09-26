@@ -56,4 +56,18 @@ public interface ProductFeignClient {
      */
     @GetMapping("/api/product/inner/findSkuInfoByKeyword/{keyword}")
     public List<SkuInfo> findSkuInfoByKeyword(@PathVariable String keyword);
+
+    /**
+     * 获取所有的分类
+     * @return
+     */
+    @GetMapping("/api/product/inner/findAllCategoryList")
+    public List<Category> findAllCategoryList();
+
+    /**
+     * 获取新人专享商品
+     * @return
+     */
+    @GetMapping("/api/product/inner/findNewPersonSkuInfoList")
+    public List<SkuInfo> findNewPersonSkuInfoList();
 }

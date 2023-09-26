@@ -1,6 +1,7 @@
 package com.lucky.ssyx.search.controller;
 
 import com.lucky.ssyx.common.result.Result;
+import com.lucky.ssyx.model.search.SkuEs;
 import com.lucky.ssyx.search.service.SkuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author lucky
@@ -34,5 +37,12 @@ public class SkuApiController {
     public Result lowerGoods(@PathVariable Long skuId) {
         skuService.lowerSku(skuId);
         return Result.ok(null);
+    }
+
+    @ApiOperation("获取爆款商品")
+    @GetMapping("/inner/findHotSkuList")
+    public List<SkuEs> findHotSkuList(){
+        List<SkuEs> skuEsList = skuService.findHotSkuList();
+        return skuEsList;
     }
 }

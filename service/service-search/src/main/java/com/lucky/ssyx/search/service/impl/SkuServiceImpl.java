@@ -10,7 +10,12 @@ import com.lucky.ssyx.search.repository.SkuRepository;
 import com.lucky.ssyx.search.service.SkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lucky
@@ -70,6 +75,19 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public void lowerSku(Long skuId) {
         skuRepository.deleteById(skuId);
+    }
+
+    /**
+     * 获取爆款商品
+     * @return
+     */
+    @Override
+    public List<SkuEs> findHotSkuList() {
+        //0代表第一页
+        Pageable pageable = PageRequest.of(0, 3);
+        Page<SkuEs> skuEsPage = skuRepository.findByOrderByHotScoreDesc(pageable);
+        List<SkuEs> skuEsList = skuEsPage.getContent();
+        return skuEsList;
     }
 }
 

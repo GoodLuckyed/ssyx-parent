@@ -1,5 +1,9 @@
 package com.lucky.ssyx.search.service;
 
+import com.lucky.ssyx.model.search.SkuEs;
+
+import java.util.List;
+
 /**
  * @author lucky
  * @date 2023/9/10
@@ -17,4 +21,10 @@ public interface SkuService {
      * @param skuId
      */
     void lowerSku(Long skuId);
+
+    /**
+     * 获取爆款商品
+     * @return
+     */
+    List<SkuEs> findHotSkuList();
 }

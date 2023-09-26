@@ -63,6 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Leader leader = leaderMapper.selectById(userDelivery.getLeaderId());
         LeaderAddressVo leaderAddressVo = new LeaderAddressVo();
         BeanUtils.copyProperties(leader, leaderAddressVo);
+        leaderAddressVo.setUserId(leader.getUserId());
         leaderAddressVo.setLeaderId(leader.getId());
         leaderAddressVo.setLeaderName(leader.getName());
         leaderAddressVo.setLeaderPhone(leader.getPhone());
