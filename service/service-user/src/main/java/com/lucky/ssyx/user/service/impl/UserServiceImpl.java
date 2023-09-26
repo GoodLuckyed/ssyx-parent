@@ -88,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userLoginVo.setIsNew(user.getIsNew());
         userLoginVo.setPhotoUrl(user.getPhotoUrl());
         //获取当前社区团长id与对应的仓库id
-        if (user.getUserType() == UserType.LEADER){
+        if (user.getUserType() == UserType.USER){
             LambdaQueryWrapper<UserDelivery> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(UserDelivery::getUserId, userId);
             wrapper.eq(UserDelivery::getIsDefault, 1);

@@ -1,6 +1,9 @@
 package com.lucky.ssyx.search.service;
 
 import com.lucky.ssyx.model.search.SkuEs;
+import com.lucky.ssyx.vo.search.SkuEsQueryVo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -27,4 +30,12 @@ public interface SkuService {
      * @return
      */
     List<SkuEs> findHotSkuList();
+
+    /**
+     * 获取商品分类下的商品
+     * @param pageable
+     * @param skuEsQueryVo
+     * @return
+     */
+    Page<SkuEs> search(Pageable pageable, SkuEsQueryVo skuEsQueryVo);
 }

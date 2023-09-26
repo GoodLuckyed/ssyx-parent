@@ -19,4 +19,22 @@ public interface SkuRepository extends ElasticsearchRepository<SkuEs,Long> {
      * @return
      */
     Page<SkuEs> findByOrderByHotScoreDesc(Pageable pageable);
+
+    /**
+     * 根据categoryId和wareId查询商品
+     * @param categoryId
+     * @param wareId
+     * @param pageable
+     * @return
+     */
+    Page<SkuEs> findByCategoryIdAndWareId(Long categoryId, Long wareId, Pageable pageable);
+
+    /**
+     * 根据keyword和wareId查询商品
+     * @param keyword
+     * @param wareId
+     * @param pageable
+     * @return
+     */
+    Page<SkuEs> findByKeywordAndWareId(String keyword, Long wareId, Pageable pageable);
 }
