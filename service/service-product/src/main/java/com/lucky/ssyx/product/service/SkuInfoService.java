@@ -84,4 +84,11 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return
      */
     List<SkuInfo> findNewPersonSkuInfoList();
+
+    /**
+     * 根据skuId获取skuInfoVo信息
+     * @param skuId
+     * @return
+     */
+    SkuInfoVo getSkuInfoVo(Long skuId);
 }

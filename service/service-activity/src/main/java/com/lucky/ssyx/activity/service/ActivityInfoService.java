@@ -50,4 +50,12 @@ public interface ActivityInfoService extends IService<ActivityInfo> {
      * @return
      */
     Map<Long, List<String>> findActivity(List<Long> skuIdList);
+
+    /**
+     * 根据skuId获取营销与优惠券信息
+     * @param skuId
+     * @param userId
+     * @return
+     */
+    Map<String, Object> findActivityAndCoupon(Long skuId, Long userId);
 }

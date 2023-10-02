@@ -8,10 +8,12 @@ import com.lucky.ssyx.activity.mapper.ActivityRuleMapper;
 import com.lucky.ssyx.activity.mapper.ActivitySkuMapper;
 import com.lucky.ssyx.activity.service.ActivityInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lucky.ssyx.activity.service.CouponInfoService;
 import com.lucky.ssyx.enums.ActivityType;
 import com.lucky.ssyx.model.activity.ActivityInfo;
 import com.lucky.ssyx.model.activity.ActivityRule;
 import com.lucky.ssyx.model.activity.ActivitySku;
+import com.lucky.ssyx.model.activity.CouponInfo;
 import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.product.ProductFeignClient;
 import com.lucky.ssyx.vo.activity.ActivityRuleVo;
@@ -47,6 +49,9 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
 
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private CouponInfoService couponInfoService;
 
     /**
      * 获取营销活动信息分页列表
@@ -188,6 +193,26 @@ public class ActivityInfoServiceImpl extends ServiceImpl<ActivityInfoMapper, Act
                     .append("折");
         }
         return ruleDesc.toString();
+    }
+
+    /**
+     * 根据skuId获取营销与优惠券信息
+     * @param skuId
+     * @param userId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findActivityAndCoupon(Long skuId, Long userId) {
+        //根据skuId获取营销活动规则信息
+        List<Long> skuIdList = new ArrayList<>();
+        skuIdList.add(skuId);
+        Map<Long, List<String>> activityRuleList = this.findActivity(skuIdList);
+        //根据skuId+userId获取优惠卷信息
+        List<CouponInfo> couponInfoList = couponInfoService.findCouponInfoList(skuId,userId);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("activityRuleList",activityRuleList);
+        map.put("couponInfoList",couponInfoList);
+        return map;
     }
 }
 

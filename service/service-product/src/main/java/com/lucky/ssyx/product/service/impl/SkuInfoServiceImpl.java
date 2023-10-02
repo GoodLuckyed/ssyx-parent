@@ -273,6 +273,29 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         List<SkuInfo> skuInfoList = skuInfoPage.getRecords();
         return skuInfoList;
     }
+
+    /**
+     * 根据skuId获取skuInfoVo信息
+     * @param skuId
+     * @return
+     */
+    @Override
+    public SkuInfoVo getSkuInfoVo(Long skuId) {
+        //获取sku基本信息
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        //获取sku海报列表
+        List<SkuPoster> skuPosterList = skuPosterService.selectPosterList(skuId);
+        //获取sku图片列表
+        List<SkuImage> skuImageList = skuImageService.selectImageList(skuId);
+        //获取sku属性值列表
+        List<SkuAttrValue> skuAttrValueList = skuAttrValueService.selectAttrValueList(skuId);
+        SkuInfoVo skuInfoVo = new SkuInfoVo();
+        BeanUtils.copyProperties(skuInfo,skuInfoVo);
+        skuInfoVo.setSkuPosterList(skuPosterList);
+        skuInfoVo.setSkuImagesList(skuImageList);
+        skuInfoVo.setSkuAttrValueList(skuAttrValueList);
+        return skuInfoVo;
+    }
 }
 
 

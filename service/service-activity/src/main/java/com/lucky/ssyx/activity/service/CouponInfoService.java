@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lucky.ssyx.model.activity.CouponInfo;
 import com.lucky.ssyx.vo.activity.CouponRuleVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,4 +37,12 @@ public interface CouponInfoService extends IService<CouponInfo> {
      * @param couponRuleVo
      */
     void saveCouponRule(CouponRuleVo couponRuleVo);
+
+    /**
+     * 根据skuId+userId获取优惠卷信息
+     * @param skuId
+     * @param userId
+     * @return
+     */
+    List<CouponInfo> findCouponInfoList(Long skuId, Long userId);
 }
