@@ -1,6 +1,6 @@
 package com.lucky.ssyx.product.controller;
 
-import com.aliyuncs.exceptions.ClientException;
+
 import com.lucky.ssyx.common.result.Result;
 import com.lucky.ssyx.product.service.FileUploadService;
 import io.swagger.annotations.Api;
@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(tags = "文件上传接口")
 @RestController
 @RequestMapping("/admin/product")
+@CrossOrigin
 public class FileUploadController {
 
     @Autowired

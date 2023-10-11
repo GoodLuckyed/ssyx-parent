@@ -1,5 +1,6 @@
 package com.lucky.ssyx.cart.controller;
 
+import com.lucky.ssyx.activity.ActivityFeginClient;
 import com.lucky.ssyx.cart.service.CartInfoService;
 import com.lucky.ssyx.common.Auth.AuthContextHolder;
 import com.lucky.ssyx.common.result.Result;
@@ -23,6 +24,9 @@ public class CartApiController {
     @Autowired
     private CartInfoService cartInfoService;
 
+    @Autowired
+    private ActivityFeginClient activityFeginClient;
+
     @ApiOperation("获取购物车列表")
     @GetMapping("/cartList")
     public Result getCartList(){
@@ -30,6 +34,17 @@ public class CartApiController {
         List<CartInfo> cartInfoList =  cartInfoService.getCartList(userId);
         return Result.ok(cartInfoList);
     }
+
+    @ApiOperation("获取购物车满足条件的营销与优惠券信息")
+    @GetMapping("/activityCartList")
+    public Result activityCartList() {
+        // 获取用户id
+        Long userId = AuthContextHolder.getUserId();
+        List<CartInfo> cartInfoList = cartInfoService.getCartList(userId);
+        OrderConfirmVo orderConfirmVo = activityFeginClient.findCartActivityAndCoupon(cartInfoList, userId);
+        return Result.ok(orderConfirmVo);
+    }
+
 
     @ApiOperation("添加购物车")
     @GetMapping("/addToCart/{skuId}/{skuNum}")

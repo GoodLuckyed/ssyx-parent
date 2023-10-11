@@ -3,6 +3,7 @@ package com.lucky.ssyx.activity.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lucky.ssyx.model.activity.ActivityInfo;
 import com.lucky.ssyx.model.activity.ActivityRule;
+import com.lucky.ssyx.model.activity.ActivitySku;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,11 @@ public interface ActivityInfoMapper extends BaseMapper<ActivityInfo> {
      * @return
      */
     List<ActivityRule> findActivityRuleList(@Param("skuId") Long skuId);
+
+    /**
+     * 根据skuIdList,获取对应的营销活动信息
+     * @param skuIdList
+     * @return
+     */
+    List<ActivitySku> selectCartActivityList(@Param("skuIdList") List<Long> skuIdList);
 }
