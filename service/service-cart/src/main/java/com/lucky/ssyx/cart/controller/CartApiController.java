@@ -78,4 +78,30 @@ public class CartApiController {
         cartInfoService.batchDeleteCart(skuIdList,userId);
         return Result.ok(null);
     }
+
+    @ApiOperation("更新购物车选中状态")
+    @GetMapping("/checkCart/{skuId}/{isChecked}")
+    public Result checkCart(@PathVariable Long skuId, @PathVariable Integer isChecked){
+        //获取用户id
+        Long userId = AuthContextHolder.getUserId();
+        cartInfoService.checkCart(userId,skuId,isChecked);
+        return Result.ok(null);
+    }
+
+    @ApiOperation("更新购物车全选状态")
+    @GetMapping("checkAllCart/{isChecked}")
+    public Result checkAllCart(@PathVariable Integer isChecked){
+        //获取用户id
+        Long userId = AuthContextHolder.getUserId();
+        cartInfoService.checkAllCart(userId,isChecked);
+        return Result.ok(null);
+    }
+    @ApiOperation("批量选中购物车")
+    @PostMapping("batchCheckCart/{isChecked}")
+    public Result batchCheckCart(@RequestBody List<Long> skuIdList, @PathVariable Integer isChecked){
+        //获取用户id
+        Long userId = AuthContextHolder.getUserId();
+        cartInfoService.batchCheckCart(userId,skuIdList,isChecked);
+        return Result.ok(null);
+    }
 }

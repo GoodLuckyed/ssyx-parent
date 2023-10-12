@@ -159,6 +159,61 @@ public class CartInfoServiceImpl implements CartInfoService {
         return cartInfoList;
     }
 
+    /**
+     * 更新购物车选中状态
+     * @param userId
+     * @param skuId
+     * @param isChecked
+     */
+    @Override
+    public void checkCart(Long userId, Long skuId, Integer isChecked) {
+        String cartKey = this.getKey(userId);
+        BoundHashOperations<String,String,CartInfo> boundHashOperations = redisTemplate.boundHashOps(cartKey);
+        CartInfo cartInfo = boundHashOperations.get(skuId.toString());
+        if (cartInfo != null){
+            cartInfo.setIsChecked(isChecked);
+            boundHashOperations.put(skuId.toString(),cartInfo);
+            this.setCartKeyExpire(cartKey);
+        }
+    }
+
+    /**
+     * 更新购物车全选状态
+     * @param userId
+     * @param isChecked
+     */
+    @Override
+    public void checkAllCart(Long userId, Integer isChecked) {
+        String cartKey = this.getKey(userId);
+        BoundHashOperations<String,String,CartInfo> boundHashOperations = redisTemplate.boundHashOps(cartKey);
+        List<CartInfo> cartInfoList = boundHashOperations.values();
+        cartInfoList.forEach(cartInfo -> {
+            cartInfo.setIsChecked(isChecked);
+            boundHashOperations.put(cartInfo.getSkuId().toString(),cartInfo);
+        });
+        this.setCartKeyExpire(cartKey);
+    }
+
+    /**
+     * 批量选中购物车
+     * @param userId
+     * @param skuIdList
+     * @param isChecked
+     */
+    @Override
+    public void batchCheckCart(Long userId, List<Long> skuIdList, Integer isChecked) {
+        String cartKey = this.getKey(userId);
+        BoundHashOperations<String,String,CartInfo> boundHashOperations = redisTemplate.boundHashOps(cartKey);
+        skuIdList.forEach(skuId -> {
+            CartInfo cartInfo = boundHashOperations.get(skuId.toString());
+            if (cartInfo != null){
+                cartInfo.setIsChecked(isChecked);
+                boundHashOperations.put(skuId.toString(),cartInfo);
+            }
+        });
+        this.setCartKeyExpire(cartKey);
+    }
+
     //根据用户的id获取购物车的key
     private String getKey(Long userId) {
         return RedisConst.USER_KEY_PREFIX + userId + RedisConst.USER_CART_KEY_SUFFIX;

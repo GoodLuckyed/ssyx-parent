@@ -43,4 +43,27 @@ public interface CartInfoService {
      * @return
      */
     List<CartInfo> getCartList(Long userId);
+
+    /**
+     * 更新购物车选中状态
+     * @param userId
+     * @param skuId
+     * @param isChecked
+     */
+    void checkCart(Long userId, Long skuId, Integer isChecked);
+
+    /**
+     * 更新购物车全选状态
+     * @param userId
+     * @param isChecked
+     */
+    void checkAllCart(Long userId, Integer isChecked);
+
+    /**
+     * 批量选中购物车
+     * @param userId
+     * @param skuIdList
+     * @param isChecked
+     */
+    void batchCheckCart(Long userId, List<Long> skuIdList, Integer isChecked);
 }
