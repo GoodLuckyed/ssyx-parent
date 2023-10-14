@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author lucky
@@ -212,6 +213,22 @@ public class CartInfoServiceImpl implements CartInfoService {
             }
         });
         this.setCartKeyExpire(cartKey);
+    }
+
+    /**
+     * 获取用户在购物车里选中的购物项列表
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<CartInfo> getCartCheckedList(Long userId) {
+        String cartKey = this.getKey(userId);
+        BoundHashOperations<String,String,CartInfo> boundHashOperations = redisTemplate.boundHashOps(cartKey);
+        List<CartInfo> cartInfoList = boundHashOperations.values();
+        List<CartInfo> cartCheckedList = cartInfoList.stream().filter((cartInfo) -> {
+            return cartInfo.getIsChecked().intValue() == 1;
+        }).collect(Collectors.toList());
+        return cartCheckedList;
     }
 
     //根据用户的id获取购物车的key
