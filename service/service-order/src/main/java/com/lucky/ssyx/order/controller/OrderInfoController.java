@@ -2,15 +2,14 @@ package com.lucky.ssyx.order.controller;
 
 
 import com.lucky.ssyx.common.result.Result;
+import com.lucky.ssyx.model.order.OrderInfo;
 import com.lucky.ssyx.order.service.OrderInfoService;
 import com.lucky.ssyx.vo.order.OrderConfirmVo;
+import com.lucky.ssyx.vo.order.OrderSubmitVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -33,6 +32,20 @@ public class OrderInfoController {
     public Result confirm(){
         OrderConfirmVo orderConfirmVo = orderInfoService.confirm();
         return Result.ok(orderConfirmVo);
+    }
+
+    @ApiOperation("生成订单")
+    @PostMapping("/auth/submitOrder")
+    public Result submitOrder(@RequestBody OrderSubmitVo orderSubmitVo){
+        Long orderId = orderInfoService.submitOrder(orderSubmitVo);
+        return Result.ok(orderId);
+    }
+
+    @ApiOperation("获取订单详情")
+    @GetMapping("/auth/getOrderInfoById/{orderId}")
+    public Result getOrderInfoById(@PathVariable("orderId") Long orderId){
+       OrderInfo orderInfo = orderInfoService.getOrderInfoById(orderId);
+       return Result.ok(orderInfo);
     }
 }
 

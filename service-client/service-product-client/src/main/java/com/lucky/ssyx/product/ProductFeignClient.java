@@ -3,6 +3,7 @@ package com.lucky.ssyx.product;
 import com.lucky.ssyx.model.product.Category;
 import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.vo.product.SkuInfoVo;
+import com.lucky.ssyx.vo.product.SkuStockLockVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,4 +80,13 @@ public interface ProductFeignClient {
      */
     @GetMapping("/api/product/inner/getSkuInfoVo/{skuId}")
     public SkuInfoVo getSkuInfoVo(@PathVariable Long skuId);
+
+    /**
+     * 验证锁定库存
+     * @param skuStockLockVoList
+     * @param orderNo
+     * @return
+     */
+    @PostMapping("/api/product/inner/checkAndLock/{orderNo}")
+    public Boolean checkAndLock(@RequestBody List<SkuStockLockVo> skuStockLockVoList, @PathVariable String orderNo);
 }

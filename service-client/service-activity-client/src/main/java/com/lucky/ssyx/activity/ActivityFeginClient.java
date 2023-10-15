@@ -1,6 +1,8 @@
 package com.lucky.ssyx.activity;
 
+import com.lucky.ssyx.model.activity.CouponInfo;
 import com.lucky.ssyx.model.order.CartInfo;
+import com.lucky.ssyx.vo.order.CartInfoVo;
 import com.lucky.ssyx.vo.order.OrderConfirmVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -43,4 +45,31 @@ public interface ActivityFeginClient {
      */
     @PostMapping("/api/activity/inner/findCartActivityAndCoupon/{userId}")
     public OrderConfirmVo findCartActivityAndCoupon(@RequestBody List<CartInfo> cartInfoList, @PathVariable("userId") Long userId);
+
+
+    /**
+     * 获取购物车营销规则数据
+     * @param cartInfoList
+     * @return
+     */
+    @PostMapping("/api/activity/inner/findCartActivityList")
+    public List<CartInfoVo> findCartActivityList(@RequestBody List<CartInfo> cartInfoList);
+
+    /**
+     * 获取购物车对应的优惠卷
+     * @param cartInfoList
+     * @param couponId
+     * @return
+     */
+    @PostMapping("/api/activity/inner/findRangeSkuIdList/{couponId}")
+    public CouponInfo findRangeSkuIdList(@RequestBody List<CartInfo> cartInfoList, @PathVariable Long couponId);
+
+    /**
+     * 更新优惠券使用状态
+     * @param couponId
+     * @param userId
+     * @param orderId
+     */
+    @GetMapping("/api/activity/inner/updateCouponInfoUseStatus/{couponId}/{userId}/{orderId}")
+    public void updateCouponInfoUseStatus(@PathVariable Long couponId,@PathVariable Long userId,@PathVariable Long orderId);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lucky.ssyx.model.activity.ActivityInfo;
+import com.lucky.ssyx.model.activity.CouponInfo;
 import com.lucky.ssyx.model.order.CartInfo;
 import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.vo.activity.ActivityRuleVo;

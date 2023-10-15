@@ -24,10 +24,11 @@ public class RedisConst {
     public static final long SKULOCK_EXPIRE_PX2 = 1;
     public static final String SKULOCK_SUFFIX = ":lock";
 
+    //购物车
     public static final String USER_KEY_PREFIX = "user:";
     public static final String USER_CART_KEY_SUFFIX = ":cart";
     public static final long USER_CART_EXPIRE = 60 * 60 * 24 * 7;
-    public static final String SROCK_INFO = "stock:info:";
+    public static final String STOCK_INFO = "stock:info:";
     public static final String ORDER_REPEAT = "order:repeat:";
 
     //用户登录

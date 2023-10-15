@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.vo.product.SkuInfoQueryVo;
 import com.lucky.ssyx.vo.product.SkuInfoVo;
+import com.lucky.ssyx.vo.product.SkuStockLockVo;
 
 import java.util.List;
 
@@ -91,4 +92,12 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return
      */
     SkuInfoVo getSkuInfoVo(Long skuId);
+
+    /**
+     * 验证锁定库存
+     * @param skuStockLockVoList
+     * @param orderNo
+     * @return
+     */
+    boolean checkAndLock(List<SkuStockLockVo> skuStockLockVoList, String orderNo);
 }

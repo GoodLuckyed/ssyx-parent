@@ -5,6 +5,7 @@ import com.lucky.ssyx.model.product.SkuInfo;
 import com.lucky.ssyx.product.service.CategoryService;
 import com.lucky.ssyx.product.service.SkuInfoService;
 import com.lucky.ssyx.vo.product.SkuInfoVo;
+import com.lucky.ssyx.vo.product.SkuStockLockVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -83,5 +84,12 @@ public class ProductInnnerController {
     public SkuInfoVo getSkuInfoVo(@PathVariable Long skuId){
         SkuInfoVo skuInfoVo = skuInfoService.getSkuInfoVo(skuId);
         return skuInfoVo;
+    }
+
+    @ApiOperation(value = "验证锁定库存")
+    @PostMapping("/inner/checkAndLock/{orderNo}")
+    public Boolean checkAndLock(@RequestBody List<SkuStockLockVo> skuStockLockVoList, @PathVariable String orderNo){
+        boolean flag =  skuInfoService.checkAndLock(skuStockLockVoList,orderNo);
+        return flag;
     }
 }
