@@ -1,5 +1,6 @@
 # 上上优选-基于 Spring Cloud 的微服务架构
 本项目是一个基于 Spring Boot、springcloud等框架构建的微服务项目，是一个社区团购平台，依托社区和团长社交关系实现生鲜商品流通的新零售模式
+
 # 核心技术找
 * SpringBoot：简化新Spring应用的初始搭建以及开发过程
 * SpringCloud：基于Spring Boot实现的云原生应用开发工具，SpringCloud使用的技术：（Spring Cloud Gateway、Spring Cloud OpenFeign、Spring Cloud Alibaba Nacos等）
@@ -17,8 +18,27 @@
 * 微信小程序
 * Docker：容器技术
 * DockerFile：管理Docker镜像命令文本
+
 # 项目具体流程图
 ![001](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/8e738f2f-b5e5-4604-b603-94e91b6f6ac7)
-# 项目体系架构
 
+# 项目技术架构
+<img width="494" alt="003" src="https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/2a16e7aa-eaa2-4329-b5c6-164cf444746e">
 
+# 项目模块
+* service-acl-权限管理模块
+* service-activity-营销活动管理模块
+* service-cart-购物车模块
+* service-home-小程序首页管理模块
+* service-order-订单管理模块
+* service-payment-微信支付模块
+* service-product-商品信息管理模块
+* service-search-商品搜索模块
+* service-sys-区域管理模块
+* service-user-用户管理模块
+
+#项目预览
+* 平台管理端
+![image-20230311165315663](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/c4af05b5-d488-4050-a4ad-1bbc84efff5b)
+![image-20230311155208034](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/3c668997-c3fa-4677-ad3f-9f0492be4479)
+* 小程序端
