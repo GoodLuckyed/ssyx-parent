@@ -100,4 +100,10 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return
      */
     boolean checkAndLock(List<SkuStockLockVo> skuStockLockVoList, String orderNo);
+
+    /**
+     * 扣减库存
+     * @param orderNo
+     */
+    void minusStock(String orderNo);
 }

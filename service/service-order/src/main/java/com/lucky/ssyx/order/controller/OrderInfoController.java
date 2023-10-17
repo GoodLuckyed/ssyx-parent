@@ -47,5 +47,12 @@ public class OrderInfoController {
        OrderInfo orderInfo = orderInfoService.getOrderInfoById(orderId);
        return Result.ok(orderInfo);
     }
+
+    @ApiOperation("根据orderNo获取订单信息")
+    @GetMapping("/inner/getOrderInfoByOrderNo/{orderNo}")
+    public OrderInfo getOrderInfoByOrderNo(@PathVariable String orderNo){
+        OrderInfo orderInfo = orderInfoService.getOrderInfoByOrderNo(orderNo);
+        return orderInfo;
+    }
 }
 

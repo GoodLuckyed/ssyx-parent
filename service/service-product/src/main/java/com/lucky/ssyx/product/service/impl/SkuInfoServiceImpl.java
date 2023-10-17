@@ -375,6 +375,25 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
             rLock.unlock();
         }
     }
+
+    /**
+     * 扣减库存
+     * @param orderNo
+     */
+    @Override
+    public void minusStock(String orderNo) {
+        //获取锁定库存的缓存信息
+        List<SkuStockLockVo> skuStockLockVoList = (List<SkuStockLockVo>) redisTemplate.opsForValue().get(RedisConst.STOCK_INFO + orderNo);
+        if (CollectionUtils.isEmpty(skuStockLockVoList)){
+            return;
+        }
+        skuStockLockVoList.forEach(skuStockLockVo -> {
+            skuInfoMapper.minusStock(skuStockLockVo.getSkuId(),skuStockLockVo.getSkuNum());
+        });
+
+        //扣除库存之后，删除锁定库存的缓存。以防止重复解锁库存
+        redisTemplate.delete(RedisConst.STOCK_INFO + orderNo);
+    }
 }
 
 

@@ -46,4 +46,17 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @return
      */
     OrderInfo getOrderInfoById(Long orderId);
+
+    /**
+     * 根据orderNo获取订单信息
+     * @param orderNo
+     * @return
+     */
+    OrderInfo getOrderInfoByOrderNo(String orderNo);
+
+    /**
+     * 修改订单的支付状态
+     * @param orderNo
+     */
+    void updateOrderPayStatus(String orderNo);
 }

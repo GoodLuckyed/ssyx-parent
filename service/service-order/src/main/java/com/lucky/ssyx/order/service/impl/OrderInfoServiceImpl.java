@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lucky.ssyx.activity.ActivityFeginClient;
 import com.lucky.ssyx.cart.CartFeignClient;
 import com.lucky.ssyx.common.Auth.AuthContextHolder;
+import com.lucky.ssyx.common.constant.MqConst;
 import com.lucky.ssyx.common.constant.RedisConst;
 import com.lucky.ssyx.common.exception.SsyxException;
 import com.lucky.ssyx.common.result.ResultCodeEnum;
+import com.lucky.ssyx.common.service.RabbitService;
 import com.lucky.ssyx.common.utils.DateUtil;
 import com.lucky.ssyx.enums.*;
 import com.lucky.ssyx.model.activity.ActivityRule;
@@ -75,6 +77,9 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Autowired
     private OrderInfoService orderInfoService;
+
+    @Autowired
+    private RabbitService rabbitService;
 
     /**
      * 确认订单
@@ -285,6 +290,37 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         List<OrderItem> orderItemList = orderItemService.list(queryWrapper);
         orderInfo.setOrderItemList(orderItemList);
         return orderInfo;
+    }
+
+    /**
+     * 根据orderNo获取订单信息
+     * @param orderNo
+     * @return
+     */
+    @Override
+    public OrderInfo getOrderInfoByOrderNo(String orderNo) {
+        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(OrderInfo::getOrderNo,orderNo);
+        OrderInfo orderInfo = orderInfoMapper.selectOne(wrapper);
+        return orderInfo;
+    }
+
+    /**
+     * 修改订单的支付状态
+     * @param orderNo
+     */
+    @Override
+    public void updateOrderPayStatus(String orderNo) {
+        OrderInfo orderInfo = this.getOrderInfoByOrderNo(orderNo);
+        if (null == orderInfo || orderInfo.getOrderStatus() != OrderStatus.UNPAID){
+            return;
+        }
+        //修改支付状态
+        orderInfo.setOrderStatus(OrderStatus.WAITING_TAKE);
+        orderInfo.setProcessStatus(ProcessStatus.WAITING_DELEVER);
+        orderInfoMapper.updateById(orderInfo);
+        //扣减库存
+        rabbitService.sendMessage(MqConst.EXCHANGE_ORDER_DIRECT,MqConst.ROUTING_MINUS_STOCK,orderNo);
     }
 
     //计算总金额
