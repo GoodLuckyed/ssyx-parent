@@ -44,6 +44,14 @@
 ![image-20230311155208034](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/3c668997-c3fa-4677-ad3f-9f0492be4479)
 
 * 小程序端
+<img width="487" alt="image-20230317150341014" src="https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/dc811c02-3f78-4695-9244-e4ce5668a354">
+
+![image-20230317153507649](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/be227397-cf53-4f8e-a7b0-a6bcc1968abd)\
+![image-20230317160007849](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/5f42076b-0386-46e6-b309-770f49b7a495)
+![image-20230318090313704](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/a3d081e5-b163-4bcb-b1ef-1256c4152d18)
+![image-20230318101046247](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/e8026daa-e9b1-4223-888a-8b77ed11a362)
+
+
 
 
 
