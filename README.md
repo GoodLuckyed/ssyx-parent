@@ -37,8 +37,19 @@
 * service-sys-区域管理模块
 * service-user-用户管理模块
 
-#项目预览
+# 项目预览
 * 平台管理端
+  
 ![image-20230311165315663](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/c4af05b5-d488-4050-a4ad-1bbc84efff5b)
 ![image-20230311155208034](https://github.com/GoodLuckyed/ssyx-parent/assets/114331338/3c668997-c3fa-4677-ad3f-9f0492be4479)
+
 * 小程序端
+
+
+
+
+
+
+
+
+
