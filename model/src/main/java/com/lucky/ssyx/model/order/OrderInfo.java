@@ -12,7 +12,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @ApiModel(description = "OrderInfo")
@@ -170,4 +172,7 @@ public class OrderInfo extends BaseEntity {
 	@TableField(exist = false)
 	private List<OrderItem> orderItemList;
 
+	@ApiModelProperty(value = "其他参数")
+	@TableField(exist = false)
+	private Map<String,Object> param = new HashMap<>();
 }

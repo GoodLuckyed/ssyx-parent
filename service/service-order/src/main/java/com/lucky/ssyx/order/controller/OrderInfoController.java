@@ -1,13 +1,18 @@
 package com.lucky.ssyx.order.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lucky.ssyx.common.Auth.AuthContextHolder;
 import com.lucky.ssyx.common.result.Result;
 import com.lucky.ssyx.model.order.OrderInfo;
 import com.lucky.ssyx.order.service.OrderInfoService;
 import com.lucky.ssyx.vo.order.OrderConfirmVo;
 import com.lucky.ssyx.vo.order.OrderSubmitVo;
+import com.lucky.ssyx.vo.order.OrderUserQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +58,23 @@ public class OrderInfoController {
     public OrderInfo getOrderInfoByOrderNo(@PathVariable String orderNo){
         OrderInfo orderInfo = orderInfoService.getOrderInfoByOrderNo(orderNo);
         return orderInfo;
+    }
+
+    @ApiOperation("查询用户不同类型的订单")
+    @GetMapping("/auth/findUserOrderPage/{page}/{limit}")
+    public Result findUserOrderPage(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable Long page,
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable Long limit,
+            @ApiParam(name = "orderVo", value = "查询对象", required = false)
+            OrderUserQueryVo orderUserQueryVo) {
+        //获取用户id
+        Long userId = AuthContextHolder.getUserId();
+        orderUserQueryVo.setUserId(userId);
+        Page<OrderInfo> pageParam = new Page<>(page, limit);
+        IPage<OrderInfo> pageModel = orderInfoService.findUserOrderPage(pageParam,orderUserQueryVo);
+        return Result.ok(pageModel);
     }
 }
 

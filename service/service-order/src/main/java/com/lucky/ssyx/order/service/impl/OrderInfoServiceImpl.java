@@ -1,6 +1,8 @@
 package com.lucky.ssyx.order.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lucky.ssyx.activity.ActivityFeginClient;
 import com.lucky.ssyx.cart.CartFeignClient;
 import com.lucky.ssyx.common.Auth.AuthContextHolder;
@@ -26,6 +28,7 @@ import com.lucky.ssyx.user.UserFeginClient;
 import com.lucky.ssyx.vo.order.CartInfoVo;
 import com.lucky.ssyx.vo.order.OrderConfirmVo;
 import com.lucky.ssyx.vo.order.OrderSubmitVo;
+import com.lucky.ssyx.vo.order.OrderUserQueryVo;
 import com.lucky.ssyx.vo.product.SkuStockLockVo;
 import com.lucky.ssyx.vo.user.LeaderAddressVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -321,6 +324,32 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfoMapper.updateById(orderInfo);
         //扣减库存
         rabbitService.sendMessage(MqConst.EXCHANGE_ORDER_DIRECT,MqConst.ROUTING_MINUS_STOCK,orderNo);
+    }
+
+    /**
+     * 查询用户不同类型的订单
+     * @param pageParam
+     * @param orderUserQueryVo
+     * @return
+     */
+    @Override
+    public IPage<OrderInfo> findUserOrderPage(Page<OrderInfo> pageParam, OrderUserQueryVo orderUserQueryVo) {
+        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(OrderInfo::getUserId,orderUserQueryVo.getUserId());
+        wrapper.eq(OrderInfo::getOrderStatus,orderUserQueryVo.getOrderStatus());
+        Page<OrderInfo> orderInfoPage = orderInfoMapper.selectPage(pageParam, wrapper);
+        //获取每个订单，把每个订单里面订单项查询封装
+        List<OrderInfo> records = orderInfoPage.getRecords();
+        for (OrderInfo orderInfo : records) {
+            LambdaQueryWrapper<OrderItem> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(OrderItem::getOrderId,orderInfo.getId());
+            List<OrderItem> orderItemList = orderItemService.list(queryWrapper);
+            //把订单项集合封装到每个订单里面
+            orderInfo.setOrderItemList(orderItemList);
+            //封装订单状态名称
+            orderInfo.getParam().put("orderStatusName",orderInfo.getOrderStatus().getComment());
+        }
+        return orderInfoPage;
     }
 
     //计算总金额

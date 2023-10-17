@@ -1,11 +1,14 @@
 package com.lucky.ssyx.order.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lucky.ssyx.model.order.CartInfo;
 import com.lucky.ssyx.model.order.OrderInfo;
 import com.lucky.ssyx.vo.order.OrderConfirmVo;
 import com.lucky.ssyx.vo.order.OrderSubmitVo;
+import com.lucky.ssyx.vo.order.OrderUserQueryVo;
 
 import java.util.List;
 
@@ -59,4 +62,12 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @param orderNo
      */
     void updateOrderPayStatus(String orderNo);
+
+    /**
+     * 查询用户不同类型的订单
+     * @param pageParam
+     * @param orderUserQueryVo
+     * @return
+     */
+    IPage<OrderInfo> findUserOrderPage(Page<OrderInfo> pageParam, OrderUserQueryVo orderUserQueryVo);
 }
